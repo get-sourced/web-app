@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Open Source Contribution Guide
+Welcome to our open-source project! We appreciate your interest in contributing and helping us improve. This guide will walk you through the setup process, project structure, coding guidelines, and contribution best practices.
+
+## Table of Contents
+- [Open Source Contribution Guide](#open-source-contribution-guide)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+  - [Project Structure](#project-structure)
+  - [Coding Guidelines](#coding-guidelines)
+  - [How to Contribute](#how-to-contribute)
+    - [1. Fork and Clone the Repository](#1-fork-and-clone-the-repository)
+    - [2. Create a New Branch](#2-create-a-new-branch)
+    - [3. Implement Your Changes](#3-implement-your-changes)
+    - [4. Push and Create a Pull Request](#4-push-and-create-a-pull-request)
+  - [Reporting Issues](#reporting-issues)
+  - [Code of Conduct](#code-of-conduct)
+
+---
 
 ## Getting Started
 
-First, run the development server:
+To get started with the project, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. **Fork the Repository**: Click the `Fork` button on the repository page to create a copy in your account.
+2. **Clone the Repository**: Clone your forked repository to your local machine.
+   ```sh
+   git clone https://github.com/your-username/repository-name.git
+   ```
+3. **Install Dependencies**:
+   ```sh
+   cd repository-name
+   npm install
+   ```
+4. **Run the Development Server**:
+   ```sh
+   npm run dev
+   ```
+
+---
+
+## Project Structure
+
+The project follows a structured design to maintain consistency and scalability. Below is an overview of the file organization:
+
+```
+├── src/
+│   ├── app/            # Application-specific logic
+│   ├── components/     # Shared UI components
+│   ├── hooks/          # Custom hooks
+│   ├── lib/            # Utility libraries
+│   ├── server/         # Server-side logic
+│   ├── config/         # Configuration files
+│   ├── types/          # TypeScript type definitions
+│   ├── features/       # Modular feature-specific logic
+│
+├── public/             # Static assets
+├── pages/              # Next.js page routes
+├── styles/             # Global styles
+├── .eslintrc.js        # ESLint configuration
+├── tsconfig.json       # TypeScript configuration
+└── package.json        # Project dependencies
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The `boundaries` ESLint plugin enforces module import boundaries:
+- **Shared Modules**: Can be accessed by any other module.
+- **Feature Modules**: Can only import shared modules or other modules within the same feature.
+- **App Modules**: Can import shared and feature modules.
+- **Restricted Imports**: Files in `src/tasks/` should not be directly imported.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Coding Guidelines
 
-## Learn More
+To maintain consistency across the project, follow these guidelines:
+- Use **TypeScript** for type safety.
+- Follow **Next.js best practices**.
+- Use **ESLint and Prettier** for code formatting.
+- Organize code based on the project’s structure.
+- Keep feature modules independent and encapsulated.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How to Contribute
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 1. Fork and Clone the Repository
+Follow the steps in [Getting Started](#getting-started).
 
-## Deploy on Vercel
+### 2. Create a New Branch
+Create a new branch for your feature or bug fix:
+```sh
+git checkout -b feature-branch-name
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. Implement Your Changes
+Make necessary changes and commit them with a descriptive message:
+```sh
+git commit -m "Add new feature: detailed description"
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. Push and Create a Pull Request
+Push your changes to your forked repository and create a pull request:
+```sh
+git push origin feature-branch-name
+```
+Go to the original repository and open a pull request.
+
+---
+
+## Reporting Issues
+
+If you encounter any issues, please report them in the [Issues](https://github.com/repository-name/issues) section. Provide a clear description and, if possible, steps to reproduce the issue.
+
+---
+
+## Code of Conduct
+
+By participating in this project, you agree to abide by our Code of Conduct. Be respectful and inclusive to all contributors.
+
+---
+
+Thank you for contributing! 🚀
