@@ -1,14 +1,14 @@
 export const navbar_links = [
 	{
 		url: "/",
-		label: "Find projects",
+		label: "Projects",
 	},
 	{
 		url: "/",
-		label: "Post projects",
+		label: "Post",
 	},
 	{
 		url: "/",
-		label: "Contact Us",
+		label: "Contact",
 	},
 ];

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useRef } from "react";
 import logo from "@/assets/images/logo.png";
 import Link from "next/link";
 import MapComponents from "./mapComponents";
@@ -12,16 +12,24 @@ import { useTheme } from "@/hooks/theme";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { useMobileMenuToggle } from "@/hooks/useMobileMenuToggle";
 import { MdClose } from "react-icons/md";
+import { useClickOutside } from "@/hooks/useClickOutside";
 function Navbar() {
+	const spanElement = useRef<HTMLElement>(null);
 	const { dark, toggle } = useTheme();
 	const { open, toggleMobileMenu } = useMobileMenuToggle();
+	useClickOutside(spanElement, toggleMobileMenu, open);
 	return (
 		<header className={`w-full ${jetBrains_font.className} relative px-2 `}>
 			<nav className="w-full flex justify-between items-center">
 				{/* Logo */}
 				<Link href={"/"}>
 					{" "}
-					<Image className="h-[60px] w-[60px] contain" src={logo} alt="Logo" />
+					<Image
+						priority
+						className="h-[60px] w-[60px] contain"
+						src={logo}
+						alt="Logo"
+					/>
 				</Link>
 
 				{/* navbar links */}
@@ -33,7 +41,8 @@ function Navbar() {
 					{!open ? <HiMenuAlt3 /> : <MdClose />}
 				</button>
 				<span
-					className={`flex md:gap-4 gap-1 md:items-center text-secondary_color font-semibold  flex-shrink-0 md:flex-row flex-col absolute top-[100%]  md:left-0 md:relative md:p-0 p-3 bg-primary_color border-b-[0.5px] md:border-none md:w-fit w-full ${open ? "left-0" : "-left-[100%]"} transition-all`}
+					ref={spanElement}
+					className={`flex md:gap-4 gap-1 md:items-center text-secondary_color font-semibold  flex-shrink-0 md:flex-row flex-col absolute top-[100%]  md:left-0 md:relative md:p-0 p-3  border-b-[0.5px] md:border-none md:w-fit w-full ${open ? "left-0" : "-left-[100%]"} transition-all`}
 				>
 					<MapComponents
 						items_to_map={navbar_links}
