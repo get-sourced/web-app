@@ -8,11 +8,11 @@ import { navbar_links } from "@/utils/navbar";
 import { jetBrains_font } from "@/assets/fonts";
 import { LuSunMoon } from "react-icons/lu";
 import { IoSunny } from "react-icons/io5";
-import { useTheme } from "@/hooks/theme";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { useMobileMenuToggle } from "@/hooks/useMobileMenuToggle";
 import { MdClose } from "react-icons/md";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import { useTheme } from "@/hooks/theme";
 function Navbar() {
 	const spanElement = useRef<HTMLElement>(null);
 	const { dark, toggle } = useTheme();
