@@ -16,20 +16,6 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<head>
-				<script
-					// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-					dangerouslySetInnerHTML={{
-						__html: `(() => {
-	                  if (typeof window === "undefined") return;
-	                  const dark = window.localStorage.getItem("dark");
-	                  if (dark) document.body.setAttribute("data-theme", "true");
-                    })();
-                        `,
-					}}
-					async
-				/>
-			</head>
 			<body
 				className={`${karla_font.variable} ${jetBrains_font.variable} ${inter_font.variable} antialiased bg-primary_color w-full max-w-[1000px] mx-auto hidden flex-col transition-all`}
 			>
