@@ -20,7 +20,7 @@ function Navbar() {
 	useClickOutside(spanElement, toggleMobileMenu, open);
 	return (
 		<header className={`w-full ${jetBrains_font.className} relative px-2 `}>
-			<nav className="w-full flex justify-between items-center">
+			<nav className="w-full flex justify-between items-center fixed md:static px-4 md:px-0 bg-primary_color md:bg-transparent">
 				{/* Logo */}
 				<Link href={"/"}>
 					{" "}
@@ -40,11 +40,15 @@ function Navbar() {
 				>
 					{!open ? <HiMenuAlt3 /> : <MdClose />}
 				</button>
+
 				<span
 					ref={spanElement}
-					className={`flex md:gap-4 gap-1 md:items-center text-secondary_color font-semibold  flex-shrink-0 md:flex-row flex-col absolute top-[100%]  md:left-0 md:relative md:p-0 p-3  border-b-[0.5px] md:border-none md:w-fit w-full ${open ? "left-0" : "-left-[100%]"} transition-all`}
+					className={`flex md:gap-4 gap-1 md:items-center text-secondary_color font-semibold  flex-shrink-0 md:flex-row flex-col absolute top-[100%]  md:left-0 md:relative md:p-0 p-3 md:border-none md:w-fit w-full md:h-fit ${open ? "left-0" : "-left-[100%]"} transition-all bg-primary_color md:bg-none`}
 				>
 					<MapComponents
+						className={
+							"flex md:gap-4 gap-1 md:items-center font-semibold  md:flex-row flex-col "
+						}
 						items_to_map={navbar_links}
 						method={(item) => {
 							return (

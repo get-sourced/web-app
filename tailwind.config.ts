@@ -12,9 +12,7 @@ export default {
 				primary_color: "var(--primary_color)",
 				secondary_color: "var(--color-secondary_color)",
 				light_grey: "var(--light_grey)",
-			},
-			fontSize: {
-				base: "14px",
+				lighterBlack: "var(--lighterBlack)",
 			},
 		},
 	},
