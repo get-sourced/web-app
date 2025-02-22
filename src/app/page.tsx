@@ -1,4 +1,5 @@
 import { jetBrains_font, karla_font } from "@/assets/fonts";
+import CustomLinkButton from "@/components/customButton";
 import HightLightText from "@/components/highlightText";
 import MapComponents from "@/components/mapComponents";
 import { whatWeOffer } from "@/utils/whatWeOffer";
@@ -6,13 +7,8 @@ import { whatWeOffer } from "@/utils/whatWeOffer";
 export default function Home() {
 	return (
 		<main className="w-full gap-7 flex flex-col items-center  text-secondary_color md:mt-0 mt-20 min-h-[80vh]">
-			<section className="flex w-full  max-w-[780px] gap-5 justify-center flex-col h-full] px-4 mt-auto">
+			<section className="flex w-full  max-w-[780px] gap-5 justify-center flex-col h-full] px-4 mt-auto items-center">
 				{" "}
-				<p className={`${karla_font.className} md:text-lg text-center`}>
-					With <HightLightText> Get Sourced </HightLightText>
-					discovering <HightLightText>open-source projects</HightLightText> that
-					match your skill set has never been easier.
-				</p>
 				<h2 className="text-center">
 					No more endless searching—just seamless connections to projects that
 					help you grow. Whether you{"'"}re looking to contribute or seeking
@@ -20,6 +16,11 @@ export default function Home() {
 					<HightLightText> Get Sourced </HightLightText>
 					makes it effortless.
 				</h2>
+				<p className={`${karla_font.className} md:text-lg text-center`}>
+					With <HightLightText> Get Sourced </HightLightText>
+					discovering <HightLightText>open-source projects</HightLightText> that
+					match your skill set has never been easier.
+				</p>
 				<h1
 					className={`md:text-8xl text-center text-3xl text-lighterBlack font-bold ${jetBrains_font.className}`}
 				>
