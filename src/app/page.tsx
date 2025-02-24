@@ -1,12 +1,11 @@
 import { jetBrains_font, karla_font } from "@/assets/fonts";
-import CustomLinkButton from "@/components/customButton";
 import HightLightText from "@/components/highlightText";
 import MapComponents from "@/components/mapComponents";
 import { whatWeOffer } from "@/utils/whatWeOffer";
 
 export default function Home() {
 	return (
-		<main className="w-full gap-7 flex flex-col items-center  text-secondary_color md:mt-0 mt-20 min-h-[80vh]">
+		<>
 			<section className="flex w-full  max-w-[780px] gap-5 justify-center flex-col h-full] px-4 mt-auto items-center">
 				{" "}
 				<h2 className="text-center">
@@ -63,6 +62,6 @@ export default function Home() {
 					}}
 				/>
 			</section>
-		</main>
+		</>
 	);
 }
