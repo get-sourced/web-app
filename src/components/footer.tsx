@@ -5,7 +5,7 @@ function Footer() {
 	return (
 		<footer
 			suppressHydrationWarning
-			className={`text-secondary_color  p-5 border-t-[1px] border-zinc-500 mt-24 ${jetBrains_font.className}`}
+			className={`text-secondary_color   p-5 border-t-[1px] border-zinc-500  ${jetBrains_font.className}`}
 		>
 			©{new Date().getFullYear()} Get Sourced
 		</footer>

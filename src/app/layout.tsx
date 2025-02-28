@@ -20,7 +20,7 @@ export default function RootLayout({
 				className={`${karla_font.variable} ${jetBrains_font.variable} ${inter_font.variable} antialiased bg-primary_color w-full max-w-[900px] mx-auto hidden flex-col transition-all`}
 			>
 				<Navbar />
-				<main className="w-full gap-7 flex flex-col items-center  text-secondary_color md:mt-5 mt-20 min-h-[80vh]">
+				<main className="w-full gap-7 flex flex-col items-center  text-secondary_color mb-7 md:mt-5 mt-20 min-h-[80vh]">
 					{children}
 				</main>
 				<Footer />
