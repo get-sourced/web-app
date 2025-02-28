@@ -19,7 +19,7 @@ import { karla_font } from "@/assets/fonts";
 
 function SocketWrapper() {
   const socket = useMemo(() => {
-    return io("http://localhost:5000/", {
+    return io("https://sharedrop-t1yn.onrender.com", {
       transports: ["websocket"],
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
