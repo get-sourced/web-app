@@ -9,7 +9,7 @@ export const Header = ({
 }) => {
   const { isNotificationEnabled } = useGlobalState();
   return (
-    <div className="absolute top-[2%] right-[2%] flex gap-2 z-[2]">
+    <div className="absolute top-[2%] right-[2%]  gap-2 z-[2] hidden lg:flex">
       <button
         type="button"
         className={`p-[0.4rem]

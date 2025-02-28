@@ -101,13 +101,19 @@ function useInitializer(socket: Socket) {
     setupSocketHandlers();
 
     // Check notification permission
-    if (
-      Notification.permission === "granted" &&
-      window.localStorage.getItem("notification")
-    ) {
-      setIsNotificationEnabled(true);
+    if ("Notification" in window) {
+      if (
+        Notification.permission === "granted" &&
+        window.localStorage.getItem("notification")
+      ) {
+        setIsNotificationEnabled(true);
+      } else {
+        setIsNotificationEnabled(false);
+      }
     } else {
-      setIsNotificationEnabled(false);
+      setIsNotificationEnabled(
+        !!(window as Window).localStorage.getItem("notification")
+      );
     }
     // Cleanup all listeners when the component unmounts
     return () => {
