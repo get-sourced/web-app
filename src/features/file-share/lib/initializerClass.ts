@@ -146,7 +146,7 @@ export class Initialize {
 
   async onReceiveChunks() {
     if (!this._fileSender) return;
-    const condition = this._fileSize > 10 * 1024 * 1024;
+    const condition = this._fileSize > 15 * 1024 * 1024;
     await this.checkIfCanWriteToFile(
       this._fileName,
       condition,
