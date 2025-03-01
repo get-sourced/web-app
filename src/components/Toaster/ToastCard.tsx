@@ -28,8 +28,8 @@ function ToastCard({
     <motion.span
       initial={{ opacity: 0, x: 50 }} // Animate in from right
       animate={{ opacity: 1, x: 0 }} // Normal position
-      exit={{ opacity: 0, x: -50 }} // Animate out to left
-      transition={{ duration: 0.5 }}
+      exit={{ opacity: 0, x: -70 }} // Animate out to left
+      transition={{ duration: 0.9 }}
       className={`${
         toast.state === "success"
           ? "bg-success"
@@ -39,7 +39,7 @@ function ToastCard({
       } shadow-sm flex items-center w-fit flex-shrink-0 p-2  min-w-[200px] justify-between rounded-sm text-black transition-all overflow-hidden duration-500 relative gap-2`}
     >
       <div className="flex items-center gap-2">
-        <div className="flex items-center justify-center w-[27px] h-[27px] rounded-full p-1 border-black border-[1px]">
+        <div className="flex items-center justify-center w-[27px] h-[27px] rounded-full p-1 border-black border-[1px] flex-shrink-0">
           {toast.state === "success" ? (
             <IoCheckmarkSharp />
           ) : toast.state === "error" ? (

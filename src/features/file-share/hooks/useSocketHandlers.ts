@@ -2,7 +2,6 @@ import type { Socket } from "socket.io-client";
 import type { ChangeEvent } from "react";
 import { useGlobalState } from "../context/useStateContext";
 import { toast } from "@/components/Toaster/Toast";
-
 // src/hooks/useSocketHandlers.ts
 export const useSocketHandlers = (socket: Socket) => {
   const { setState, state, setIsNotificationEnabled } = useGlobalState();
@@ -45,6 +44,7 @@ export const useSocketHandlers = (socket: Socket) => {
       if (currentChunk < totalChunks) {
         readNextChunk();
       } else {
+        socket.emit("transfer-complete", { targetUser: state.selectedUser });
         toast("File transfer completed");
       }
     };
@@ -59,6 +59,7 @@ export const useSocketHandlers = (socket: Socket) => {
     // Start reading the first chunk
     readNextChunk();
   };
+
 
   const acceptFileResponse = () => {
     setState((prev) => ({ ...prev, receivedFile: null }));
