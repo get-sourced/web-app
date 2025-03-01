@@ -23,12 +23,12 @@ export const UserGrid = () => {
               onContextMenu={(e) => {
                 e.preventDefault();
                 setStateWithKey("messageBox", true);
-                setStateWithKey("selectedUser", user.id);
+                setStateWithKey("selectedUser", user);
                 setStateWithKey("initial", false);
               }}
               className="flex flex-col items-center justify-center cursor-pointer "
               onClick={() => {
-                setStateWithKey("selectedUser", user.id);
+                setStateWithKey("selectedUser", user);
                 document.getElementById("file")?.click();
               }}
             >

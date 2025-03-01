@@ -10,7 +10,7 @@ export const MessageModal = ({ onSend }: messageProp) => {
   return (
     (selectedUser || initial) && (
       <div
-        className={`fixed h-full w-full flex items-center justify-center bg-black bg-opacity-50 z-40 px-3 transition-all  duration-300 ${
+        className={`left-0 top-0 fixed h-full w-full flex items-center justify-center bg-black bg-opacity-50 z-40 px-3 transition-all  duration-300 ${
           karla_font.className
         } ${messageBox ? "opacity-100 visible" : "opacity-0 invisible"}`}
       >
@@ -33,7 +33,7 @@ export const MessageModal = ({ onSend }: messageProp) => {
               <span className="bg-zinc-500/15 p-2"> To:</span>
 
               <span className="font-medium text-secondary_color  text-base ml-1">
-                {getName("selected", state)}
+                {state.selectedUser?.fullName}
               </span>
               <br />
             </p>

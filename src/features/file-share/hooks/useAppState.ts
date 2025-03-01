@@ -2,7 +2,7 @@ import { useState, useRef, type RefObject } from "react";
 type stateType = {
   users: User[] | [];
   currentUser: { name: string; id: string } | null;
-  selectedUser: string | null;
+  selectedUser: User | null;
   senderUser: FileType | null;
   file: File | null;
   progress: number;

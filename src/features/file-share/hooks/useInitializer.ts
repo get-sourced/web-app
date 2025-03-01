@@ -8,6 +8,7 @@ import {
   updateReceivedMessageArray,
 } from "../lib/utils";
 import { useGlobalState } from "../context/useStateContext";
+import { toast } from "@/components/Toaster/Toast";
 function useInitializer(socket: Socket) {
   const { setState, setIsNotificationEnabled } = useGlobalState();
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -17,13 +18,13 @@ function useInitializer(socket: Socket) {
       // Get the socket ID of the current user
       socket.on("connect", () => {
         const userAgent = navigator.userAgent;
-
         const fullName = getRandomName();
         setState((prev) => ({
           ...prev,
           currentUser: { id: socket.id as string, name: fullName },
         }));
         socket.emit("userDetails", { userAgent, fullName });
+        toast.success("You are on the radar!");
       });
 
       // Receive the list of all connected users
@@ -32,8 +33,9 @@ function useInitializer(socket: Socket) {
         setState((prev) => ({ ...prev, users: users_ }));
       });
 
-      // Get the sender ID, file name, and size if it is the receiver
-      socket.on("senderId", (data) => {
+      // Get the sender, file name, and size if it is the receiver
+      socket.on("sender", (data) => {
+        toast(`You got a file request from ${data.sender.fullName}`);
         setState((prev) => ({
           ...prev,
           senderUser: data,
@@ -49,7 +51,6 @@ function useInitializer(socket: Socket) {
       socket.on("progressPer", ({ progressPer }) => {
         // Handle file transfer progress and state resets
         if (Number(progressPer.toFixed(0)) >= 100) {
-          console.log(progressPer);
           setState((prev) => ({
             ...prev,
             progress: 0,
@@ -62,21 +63,47 @@ function useInitializer(socket: Socket) {
       });
 
       // Get the response if the sender can initiate the file transfer
-      socket.on("fileTransfer", ({ acceptFile }) => {
+      socket.on("fileTransfer", ({ acceptFile, sender }) => {
+        if (acceptFile) {
+          toast(`File request to ${sender.fullName} was accepted`);
+        } else {
+          toast.error(`File request to ${sender.fullName} was denied!`);
+        }
         setState((prev) => ({ ...prev, isFileAccepted: acceptFile }));
       });
 
       // Get the message if it is the receiver
-      socket.on("receiveMessage", ({ msg, senderId }) => {
-        setState((prev) => ({
-          ...prev,
-          receivedMessageArray: updateReceivedMessageArray(
-            prev.receivedMessageArray,
-            msg,
-            senderId
-          ),
-        }));
-      });
+      socket.on(
+        "receiveMessage",
+        ({ msg, sender }: { msg: string; sender: User }) => {
+          if ("Notification" in window) {
+            if (
+              Notification.permission === "granted" &&
+              window.localStorage.getItem("notification")
+            ) {
+              new Notification(`You got message from ${sender.fullName}`, {
+                body: msg,
+              });
+            } else {
+              toast(
+                `You got message from ${sender.fullName}. Enable notification to see!`
+              );
+            }
+          } else {
+            toast(
+              `You got message from ${sender.fullName}. To see notification switch to desktop`
+            );
+          }
+          setState((prev) => ({
+            ...prev,
+            receivedMessageArray: updateReceivedMessageArray(
+              prev.receivedMessageArray,
+              msg,
+              sender
+            ),
+          }));
+        }
+      );
 
       // Listen for the file being sent to this user
       socket.on("receiveFile", ({ fileName, fileType, fileData }) => {
@@ -90,11 +117,7 @@ function useInitializer(socket: Socket) {
         a.click();
         // Cleanup the object URL
         URL.revokeObjectURL(url);
-        //TODO:Add toast
-        // toast({
-        //   description: "File received successfully",
-        //   mode: darkMode,
-        // });
+        toast(`${fileName} received successfully`);
       });
     };
 

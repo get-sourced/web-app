@@ -13,7 +13,7 @@ function ReceivedMessageModal({ onClose, onCopy }: prop) {
   return (
     receivedMessageArray.length > 0 && (
       <div
-        className={`fixed h-full w-full flex items-center justify-center bg-black bg-opacity-50 z-40 px-3 transition-all  duration-300 ${
+        className={`fixed h-full w-full flex items-center justify-center bg-black bg-opacity-50 left-0 top-0 z-40 px-3 transition-all  duration-300 ${
           karla_font.className
         } ${isVisible ? "opacity-100 visible" : "opacity-0 invisible"}`}
       >

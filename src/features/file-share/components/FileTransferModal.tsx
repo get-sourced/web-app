@@ -12,7 +12,7 @@ export const FileTransferModal = ({ onAccept, onDecline }: prop) => {
   const isVisible = state.receivedFile !== null;
   return (
     <div
-      className={`fixed h-full w-full flex items-center justify-center bg-black bg-opacity-50 z-40 px-3 transition-all  duration-300 ${
+      className={`fixed h-full w-full flex items-center justify-center bg-black bg-opacity-50 z-40 px-3 transition-all  duration-300 left-0 top-0 ${
         karla_font.className
       } ${isVisible ? "opacity-100 visible" : "opacity-0 invisible"}`}
     >

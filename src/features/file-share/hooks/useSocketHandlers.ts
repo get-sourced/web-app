@@ -1,6 +1,7 @@
 import type { Socket } from "socket.io-client";
 import type { ChangeEvent } from "react";
 import { useGlobalState } from "../context/useStateContext";
+import { toast } from "@/components/Toaster/Toast";
 
 // src/hooks/useSocketHandlers.ts
 export const useSocketHandlers = (socket: Socket) => {
@@ -24,7 +25,7 @@ export const useSocketHandlers = (socket: Socket) => {
     reader.onload = () => {
       const chunk = reader.result;
       socket.emit("sendFileChunk", {
-        targetUserId: state.selectedUser,
+        targetUser: state.selectedUser,
         fileData: chunk,
         chunkNumber: currentChunk,
         totalChunks,
@@ -38,15 +39,13 @@ export const useSocketHandlers = (socket: Socket) => {
 
       socket.emit("progress", {
         progressPer,
-        targetUserId: state.selectedUser,
+        targetUser: state.selectedUser,
       });
 
       if (currentChunk < totalChunks) {
         readNextChunk();
-        console.log("sending");
       } else {
-        console.log("sent");
-        // TODO: Add a toast
+        toast("File transfer completed");
       }
     };
 
@@ -65,7 +64,7 @@ export const useSocketHandlers = (socket: Socket) => {
     setState((prev) => ({ ...prev, receivedFile: null }));
     socket.emit("fileResponse", {
       acceptFile: true,
-      senderId: state.senderUser?.senderId,
+      sender: state.senderUser?.sender,
     });
   };
 
@@ -73,22 +72,18 @@ export const useSocketHandlers = (socket: Socket) => {
     setState((prev) => ({ ...prev, receivedFile: null }));
     socket.emit("fileResponse", {
       acceptFile: false,
-      senderId: state.senderUser?.senderId,
+      sender: state.senderUser?.sender,
     });
   };
 
   // Message handling
   const sendMessageHandler = () => {
-    // toast({
-    //   description: "Message transfer completed",
-    //   mode: darkMode,
-    // });
-    //TODO: Add a toast
     setState((prev) => ({ ...prev, messageBox: false }));
     socket.emit("sendMessage", {
       msg: state.text,
-      targetUserId: state.selectedUser,
+      targetUser: state.selectedUser,
     });
+    toast(`Message sent to ${state?.selectedUser?.fullName}`);
     setState((prev) => ({ ...prev, text: "" }));
   };
 
@@ -97,14 +92,10 @@ export const useSocketHandlers = (socket: Socket) => {
     navigator.clipboard
       .writeText(state.receivedMsg)
       .then(() => {
-        // toast({
-        //   description: "Copied to clipboard",
-        //   mode: darkMode,
-        // });
-        //TODO: Add a toast
+        toast("Message copied to clipboard");
       })
-      .catch((err) => {
-        console.log("Failed to copy text: ", err);
+      .catch(() => {
+        toast("Failed to copy text");
       });
   };
 

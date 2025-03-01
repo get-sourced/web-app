@@ -16,10 +16,9 @@ import { MessageModal } from "./MessageModal";
 import { useMemo } from "react";
 import { karla_font } from "@/assets/fonts";
 // Create socket instance
-
 function SocketWrapper() {
   const socket = useMemo(() => {
-    return io("https://sharedrop-t1yn.onrender.com", {
+    return io("https://get-sourced-webhook.onrender.com/", {
       transports: ["websocket"],
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,

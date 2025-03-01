@@ -8,14 +8,13 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const getName = (val: options, state: stateType["state"]): string => {
-  const providerUser = (state.users as User[]).find((user) =>
+  const providerUser =
     val === "msgSender"
-      ? user.id === state.receivedMessageArray?.[0]?.senderId
+      ? state.receivedMessageArray?.[0]?.sender.fullName
       : val === "fileSender"
-      ? user.id === state.receivedFileArray[0]?.senderId
-      : user.id === state.selectedUser
-  );
-  return providerUser?.fullName ?? "";
+      ? state.receivedFileArray[0]?.sender.fullName
+      : "";
+  return providerUser;
 };
 export const getRandomName = (): string => {
   const firstName = faker.person.firstName();
@@ -57,7 +56,7 @@ export const handleMsgArr = (
 };
 export const updateFilesArray = (
   files: FileType[],
-  data: { name: string; senderId: string; size: number }
+  data: { name: string; sender: User; size: number }
 ) => {
   if (data.name && data.size) {
     // Find the current receiver user in the latest state
@@ -65,10 +64,10 @@ export const updateFilesArray = (
     if (files.length > 0) {
       arr = [
         ...files,
-        { senderId: data.senderId, name: data.name, size: data.size },
+        { sender: data.sender, name: data.name, size: data.size },
       ];
     } else {
-      arr.push({ senderId: data.senderId, name: data.name, size: data.size });
+      arr.push({ sender: data.sender, name: data.name, size: data.size });
     }
     return arr;
   }
@@ -76,14 +75,14 @@ export const updateFilesArray = (
 export const updateReceivedMessageArray = (
   messagesArray: MsgType[],
   msg: string,
-  senderId: string
+  sender: User
 ) => {
   // Find the current receiver user in the latest state
   let arr: MsgType[] = [];
   if (messagesArray.length > 0) {
-    arr = [...messagesArray, { text: msg, senderId }];
+    arr = [...messagesArray, { text: msg, sender }];
   } else {
-    arr.push({ text: msg, senderId });
+    arr.push({ text: msg, sender });
   }
   // Return the updated state array with the new message added for this user
   return arr;

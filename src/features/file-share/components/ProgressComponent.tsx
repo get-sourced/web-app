@@ -10,8 +10,8 @@ function ProgressComponent({
 }) {
   return (
     state.progress > 0 &&
-    (user.id === state.senderUser?.senderId ||
-      user.id === state.selectedUser) && (
+    (user.id === state.senderUser?.sender.id ||
+      user.id === state.selectedUser?.id) && (
       // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
       <svg
         className="absolute top-0 left-0 w-[calc(100%+8px)] h-[calc(100%+8px)] -translate-x-1 -translate-y-1"

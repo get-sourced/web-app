@@ -15,7 +15,7 @@ interface HoverUser extends Id {
 }
 
 interface FileType {
-  senderId: string;
+  sender: User;
   name: string;
   size: number;
 }
@@ -25,7 +25,7 @@ interface ReceivedFileType {
 }
 
 interface MsgType {
-  senderId: string;
+  sender: User;
   text: string;
 }
 
