@@ -24,7 +24,8 @@ function createToast(): ToastFunction {
   for (const method of methods) {
     type key = keyof ToastClass;
     const methodName = method as key;
-    hybrid[methodName] = toastInstance[methodName].bind(toastInstance) as any;
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        hybrid[methodName] = toastInstance[methodName].bind(toastInstance) as any;
   }
   return hybrid;
 }

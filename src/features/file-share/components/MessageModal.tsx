@@ -1,6 +1,5 @@
 import { jetBrains_font, karla_font } from "@/assets/fonts";
 import { useGlobalState } from "../context/useStateContext";
-import { getName } from "../lib/utils";
 type messageProp = {
   onSend: () => void;
 };

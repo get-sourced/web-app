@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import type { Toast } from "./toastStore";
 import { motion } from "framer-motion";
 import { IoClose, IoCheckmarkSharp } from "react-icons/io5";
-import { BiCommentError } from "react-icons/bi";
 import { CiWarning } from "react-icons/ci";
 function ToastCard({
   toast,
