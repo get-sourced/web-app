@@ -13,9 +13,8 @@ export class Initialize {
   private _fileHandle: FileSystemHandle | undefined = undefined;
   private _writable: FileSystemWritableFileStream | undefined = undefined;
   private _receivedBytes = 0;
-  private _fileSize = 0;
-  private _fileName = "";
-  private _fileSender: User | undefined = undefined;
+  private _sender: FileType | undefined = undefined;
+  private readonly MAX_SIZE_FOR_MEMORY = 15 * 1024 * 1024;
   private _chunks: BlobPart[] = []; // Fallback for unsupported browsers
   constructor(socket: Socket, setState: stateType["setState"]) {
     this._socket = socket;
@@ -47,10 +46,8 @@ export class Initialize {
   // Get the sender, file name, and size if it is the receiver
   onGetSender() {
     this._socket.on("sender", (data) => {
+      this._sender = data;
       toast(`You got a file request from ${data.sender.fullName}`);
-      this._fileSize = data.size;
-      this._fileName = data.name;
-      this._fileSender = data.sender;
       this._setState((prev) => ({
         ...prev,
         senderUser: data,
@@ -144,32 +141,36 @@ export class Initialize {
     });
   }
 
-  async onReceiveChunks() {
-    if (!this._fileSender) return;
-    const condition = this._fileSize > 15 * 1024 * 1024;
-    await this.checkIfCanWriteToFile(
-      this._fileName,
-      condition,
-      this._fileSender.id
-    );
+  onReceiveChunks() {
     this._socket.on(
       "receiveChunk",
       async ({ fileData, chunkNumber, totalChunks }) => {
+        if (!this._sender) return;
+        const condition = this._sender.size > this.MAX_SIZE_FOR_MEMORY;
+        // await this.checkIfCanWriteToFile();
         if (this._writable) {
           // Write chunk directly to disk
-          await this._writable.write(new Uint8Array(fileData));
-          this._receivedBytes += fileData.byteLength;
-          const progress = Math.round((chunkNumber / totalChunks) * 100);
-          this._socket.emit("progress", {
-            progressPer: progress,
-            targetUser: this._fileSender,
-          });
+          try {
+            await this._writable.write(new Uint8Array(fileData));
+            this._receivedBytes += fileData.byteLength;
+            const progress = Math.round(
+              (this._receivedBytes / totalChunks) * 100
+            );
+            this._socket.emit("progress", {
+              progressPer: progress,
+              targetUser: this._sender?.sender,
+            });
+          } catch {
+            this._socket.emit("reject-transfer", {
+              id: this._sender?.sender.id,
+            });
+          }
         } else if (!condition) {
           this._chunks.push(fileData);
           const progress = Math.round((chunkNumber / totalChunks) * 100);
           this._socket.emit("progress", {
             progressPer: progress,
-            targetUser: this._fileSender,
+            targetUser: this._sender?.sender,
           });
         }
       }
@@ -180,15 +181,16 @@ export class Initialize {
     if (this._writable) {
       this._writable.abort();
     }
-    this._socket.on("transfer-interrupted", (user: User) => {
+    this._socket.on("transfer-interrupted", (user: FileType) => {
       toast.error(
-        `File to ${user.fullName} was rejected because of size. For larger files kindly use supported browser`
+        `File to ${user.sender.fullName} was rejected because of size. For larger files kindly use supported browser`
       );
     });
   }
-  onReceiveComplete() {
+  async onReceiveComplete() {
     this._socket.on("transfer-complete", async () => {
       if (this._writable) {
+        console.log("this._writable completed");
         await this._writable.close();
       } else {
         // Fallback: Create Blob and trigger download
@@ -196,35 +198,33 @@ export class Initialize {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = this._fileName;
+        a.download = this._sender?.name as string;
         a.click();
         URL.revokeObjectURL(url);
         this._chunks = [];
       }
-      toast(`${this._fileName} received successfully`);
+      toast(`${this._sender?.name} received successfully`);
     });
   }
 
-  async checkIfCanWriteToFile(
-    fileName: string,
-    condition: boolean,
-    id: string
-  ) {
+  async checkIfCanWriteToFile() {
+    const condition = (this._sender?.size as number) > 1 * 1024 * 1024;
     if ("showSaveFilePicker" in window) {
       try {
         this._fileHandle = await window.showSaveFilePicker({
-          suggestedName: fileName,
+          suggestedName: this._sender?.name,
         });
         if (this._fileHandle && "createWritable" in this._fileHandle) {
           this._writable = await (
             this._fileHandle as FileSystemFileHandle
           ).createWritable();
         }
-      } catch {
-        this._socket.emit("reject-transfer", { id });
+      } catch (err) {
+        console.log("Error", err);
+        this._socket.emit("reject-transfer", { id: this._sender?.sender.id });
       }
     } else if (condition) {
-      this._socket.emit("reject-transfer", { id });
+      this._socket.emit("reject-transfer", { id: this._sender?.sender.id });
       toast.error("File is bigger use supported browser for transfer");
     }
   }

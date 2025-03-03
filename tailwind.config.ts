@@ -12,6 +12,11 @@ export default {
       transitionDuration: {
         "300": "300ms",
       },
+      fontSize: {
+        xs: "0.75rem",
+        lg: "1rem ",
+        xl: " 1.25rem ",
+      },
       opacity: {
         "0": "0",
         "100": "1",

@@ -7,6 +7,7 @@
   --light_grey: #bfbfbfe8;
   --color-secondary_color: #f5f5f5;
   --lighterBlack: #52525b;
+  font-size: 15px;
 }
 body[data-theme="true"] {
   --light_grey: #5c5c5ce8;
@@ -74,5 +75,34 @@ body[data-theme="true"] {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+.sidebar-out {
+  transform: translateX(-500%);
+  opacity: 0;
+  animation: slide-out ease 700ms forwards;
+}
+.sidebar-in {
+  transform: translateX(0%);
+  opacity: 1;
+  animation: slide-in ease 700ms forwards;
+}
+@keyframes slide-out {
+  100% {
+    position: absolute;
+  }
+}
+@keyframes slide-in {
+  0% {
+    position: static;
+  }
+}
+@media (min-width: 768px) {
+  .sidebar-in,
+  .sidebar-out {
+    opacity: 1;
+    position: relative;
+    transform: translateX(0);
+    animation: none;
   }
 }

@@ -19,14 +19,14 @@ function Navbar() {
   const { open, toggleMobileMenu } = useMobileMenuToggle();
   useClickOutside(spanElement, toggleMobileMenu, open);
   return (
-    <header className={`w-full ${jetBrains_font.className} relative md:px-2 `}>
-      <nav className="w-full flex justify-between items-center fixed md:static px-4 md:px-0 bg-primary_color md:bg-transparent md:border-b-[1px] md:mb-2 md:border-zinc-500 z-[2]">
+    <header className={`w-full ${jetBrains_font.className}  relative md:px-2 `}>
+      <nav className="w-full flex justify-between items-center fixed md:static px-4 bg-primary_color md:bg-transparent  z-[2] shadow-md">
         {/* Logo */}
         <Link href={"/"}>
           {" "}
           <Image
             priority
-            className="h-[60px] w-[60px] contain"
+            className="h-[45px] w-[45px] contain shrink-0"
             src={logo}
             alt="Logo"
           />
@@ -43,19 +43,18 @@ function Navbar() {
 
         <span
           ref={spanElement}
-          className={`flex md:gap-4 gap-1 md:items-center text-secondary_color   flex-shrink-0 md:flex-row flex-col absolute top-[100%]  md:left-0 md:relative md:p-0 p-3 md:border-none md:w-fit w-full md:h-fit ${
+          className={`flex md:gap-4 justify-between md:justify-end md:items-center text-secondary_color   flex-shrink-0 md:flex-row  absolute top-[99%]  md:left-0 md:relative md:p-0 p-3 md:border-none w-full md:w-fit ${
             open ? "left-0" : "-left-[100%]"
-          } transition-all bg-primary_color md:bg-none`}
+          } transition-all bg-primary_color md:bg-none shadow-md md:shadow-none rounded-br-md md:rounded-none `}
         >
           <MapComponents
-            className={
-              "flex md:gap-4 gap-1 md:items-center   md:flex-row flex-col "
-            }
+            className={"flex gap-4  items-center  "}
             items_to_map={navbar_links}
             method={(item) => {
               return (
                 <Link
-                  className="w-fit flex-shrink-0"
+                  key={item.label}
+                  className="w-fit flex-shrink-0 text-base"
                   onClick={toggleMobileMenu}
                   href={item.url}
                 >

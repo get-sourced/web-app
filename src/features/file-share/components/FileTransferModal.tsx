@@ -26,7 +26,7 @@ export const FileTransferModal = ({ onAccept, onDecline }: prop) => {
             File Transfer Requested
           </h3>
         </div>
-        {receivedFileArray.length > 0 && receivedFile && (
+        {receivedFileArray?.length > 0 && receivedFile && (
           <p className={"text-secondary_color  font-semibold "}>
             <span className="bg-zinc-500/15 p-2 text-secondary_color">
               {getName("fileSender", state)}

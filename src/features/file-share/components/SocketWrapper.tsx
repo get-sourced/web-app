@@ -38,7 +38,7 @@ function SocketWrapper() {
     copyMessageHandler,
   } = useSocketHandlers(socket);
   // Initialize socket connection and register event handlers
-  useInitializer(socket);
+  const { chooseFileLocation } = useInitializer(socket);
   // Process file transfers
   useFileTransfer(handleSendFile, socket);
   // Handle received files
@@ -46,9 +46,7 @@ function SocketWrapper() {
   // Handle received messages
   useReceivedMessage();
   return (
-    <div
-      className={`relative w-full md:h-[84vh] h-[80vh]  ${karla_font.className}`}
-    >
+    <div className={`relative w-full h-full  ${karla_font.className}`}>
       <div
         className={
           "relative min-h-full flex justify-center items-center overflow-hidden transition-all duration-500 flex-col gap-6"
@@ -88,9 +86,10 @@ function SocketWrapper() {
 
         {/* File Transfer Request Modal */}
         <FileTransferModal
-          onAccept={() => {
-            acceptFileResponse();
+          onAccept={async () => {
+            await chooseFileLocation();
             handleFileArr(setState);
+            acceptFileResponse();
           }}
           onDecline={() => {
             declineFileResponse();

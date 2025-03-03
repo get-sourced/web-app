@@ -5,8 +5,8 @@ import { whatWeOffer } from "@/utils/whatWeOffer";
 
 export default function Home() {
   return (
-    <>
-      <section className="flex w-full  max-w-[780px] gap-5 justify-center flex-col h-full] px-4 mt-auto items-center">
+    <div className="h-full flex flex-col overflow-y-scroll">
+      <section className="flex w-full  max-w-[780px] gap-5 justify-center flex-col h-full px-4 my-auto items-center mt-24">
         {" "}
         <h2 className="text-center">
           No more endless searching—just seamless connections to projects that
@@ -21,7 +21,7 @@ export default function Home() {
           match your skill set has never been easier.
         </p>
         <h1
-          className={`md:text-8xl text-center text-3xl text-lighterBlack font-bold ${jetBrains_font.className}`}
+          className={`md:text-8xl text-center text-2xl text-lighterBlack font-bold ${jetBrains_font.className}`}
         >
           Welcome to <HightLightText>Get Sourced.</HightLightText>
         </h1>
@@ -32,8 +32,8 @@ export default function Home() {
           the right people, all in one place.
         </p>
       </section>
-      <section className="flex flex-col gap-6 w-full px-4">
-        <h3 className="text-center md:text-3xl font-extrabold">
+      <section className="flex flex-col gap-6 w-full px-4 mb-24">
+        <h3 className="text-center md:text-2xl font-extrabold">
           What you get out of the box with{" "}
           <HightLightText className="!font-extrabold">
             Get Sourced.
@@ -62,6 +62,6 @@ export default function Home() {
           }}
         />
       </section>
-    </>
+    </div>
   );
 }

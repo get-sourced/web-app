@@ -15,24 +15,25 @@ function SideBar() {
   return (
     <aside
       ref={aside}
-      className={`max-w-fit md:h-fit px-2  w-full flex-shrink-0 md:static fixed bg-primary_color md:bg-transparent z-20 md:z-0 h-full top-[48px]  ${
-        open ? "left-0" : "left-[-500%]"
-      } pt-5 md:pt-0  transition-all duration-700`}
+      className={"absolute md:static z-40 top-[7%]  flex-shrink-0 w-fit"}
     >
       <button
         type="button"
         onClick={() => setOpen((pre) => !pre)}
-        className="fixed top-[21px] right-[70px] z-[2] text-secondary_color font-bold text-xl md:hidden flex"
+        className="text-secondary_color font-bold text-xl md:hidden z-[100] flex fixed bg-primary_color p-2 rounded-full shadow-md top-2 right-20"
       >
         {!open && <GoSidebarCollapse />}
         {open && <GoSidebarExpand />}
       </button>
       <MapComponents
-        className="flex-col flex gap-1"
+        className={`${
+          open ? "sidebar-in" : "sidebar-out"
+        } bg-primary_color md:bg-transparent w-fit p-4 transition-all duration-700  rounded-md shadow-md md:shadow-none md:rounded-none md:top-0 md:translate-x-0 flex-shrink-0`}
         items_to_map={sidebar_links}
         method={(item) => {
           return (
             <Link
+              key={item.label}
               onClick={() => setOpen((pre) => !pre)}
               className={`${jetBrains_font.className} ${
                 path === item.url && "bg-zinc-600/15"

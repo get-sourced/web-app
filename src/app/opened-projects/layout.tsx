@@ -8,7 +8,7 @@ function OpenedProjects({
   content: ReactNode;
 }) {
   return (
-    <div className="w-full flex gap-2 px-2 md:px-0 relative">
+    <div className="w-full flex gap-2 px-2 md:px-0 relative flex-grow h-full">
       {sidebar}
       {content}
       <Toast duration={9000} />

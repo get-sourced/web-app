@@ -56,7 +56,9 @@ export const UserGrid = () => {
       />
       {!state.users.length && (
         <div className="w-full flex items-center gap-2 flex-col text-center">
-          <p className={`text-secondary_color text-lg ${jetBrains_font.className}`}>
+          <p
+            className={`text-secondary_color text-lg ${jetBrains_font.className}`}
+          >
             Open this page on other devices to send files
           </p>
           <p className={"text-center text-base text-light_grey"}>

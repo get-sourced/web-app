@@ -16,7 +16,7 @@ export const useSocketHandlers = (socket: Socket) => {
   };
   // File responses
   const handleSendFile = () => {
-    const CHUNK_SIZE = 64 * 1024; // 64KB per chunk
+    const CHUNK_SIZE = 900 * 1024; // 64KB per chunk
     const totalChunks = Math.ceil((state?.file?.size as number) / CHUNK_SIZE);
     let currentChunk = 0;
     const reader = new FileReader();
@@ -59,7 +59,6 @@ export const useSocketHandlers = (socket: Socket) => {
     // Start reading the first chunk
     readNextChunk();
   };
-
 
   const acceptFileResponse = () => {
     setState((prev) => ({ ...prev, receivedFile: null }));

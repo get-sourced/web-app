@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import type { Socket } from "socket.io-client";
 import { useGlobalState } from "../context/useStateContext";
 import { Initialize } from "../lib/initializerClass";
@@ -7,16 +7,17 @@ function useInitializer(socket: Socket) {
   const initializer = useMemo(() => {
     return new Initialize(socket, setState);
   }, [setState, socket]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     initializer.onConnect();
     initializer.getUsers();
     initializer.onGetSender();
     initializer.onFileResponse();
     initializer.onProgress();
-    initializer.onMessage();
-    initializer.onReceiveChunks();
-    initializer.onRejectTransfer();
     initializer.onReceiveComplete();
+    initializer.onReceiveChunks();
+    initializer.onMessage();
+    initializer.onRejectTransfer();
     // Check notification permission
     if ("Notification" in window) {
       if (
@@ -32,8 +33,15 @@ function useInitializer(socket: Socket) {
         !!(window as Window).localStorage.getItem("notification")
       );
     }
-    return () => initializer.clearSockets();
-  }, [initializer, setIsNotificationEnabled]);
+    return () => {
+      initializer.clearSockets();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const chooseFileLocation = useCallback(() => {
+    return initializer.checkIfCanWriteToFile();
+  }, [initializer]);
+  return { chooseFileLocation };
 }
 
 export default useInitializer;

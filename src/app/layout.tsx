@@ -17,10 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${karla_font.variable} ${jetBrains_font.variable} ${inter_font.variable} antialiased bg-primary_color w-full max-w-[900px] mx-auto hidden flex-col transition-all`}
+        className={`${karla_font.variable} ${jetBrains_font.variable} ${inter_font.variable} antialiased bg-primary_color w-full max-w-[900px] mx-auto hidden flex-col transition-all h-[100vh] overflow-hidden`}
       >
         <Navbar />
-        <main className="w-full gap-7 flex flex-col items-center  text-secondary_color mb-7 md:mt-5 mt-20 min-h-[80vh] relative">
+        <main className="w-full gap-7 flex flex-col items-center   text-secondary_color flex-grow relative md:mt-6 mt-11 shrink-0 h-[85vh]">
           {children}
         </main>
         <Footer />

@@ -16,7 +16,6 @@ function createToast(): ToastFunction {
   const hybrid = toastFn as ToastFunction;
 
   // Copy methods from the instance to the function
-  // This approach still uses type assertion, but in a more controlled way
   const methods = Object.getOwnPropertyNames(ToastClass.prototype).filter(
     (prop) => prop !== "constructor"
   );
@@ -43,7 +42,7 @@ export function Toast({ duration }: { duration: number }) {
   }, []);
   return (
     <div
-      className={`absolute z-[100] bottom-[0px] flex-col justify-end gap-3 flex transition-[height] left-[30px] ${jetBrains_font.className}`}
+      className={`fixed z-[100] bottom-[20px] flex-col justify-end gap-3 flex transition-[height] left-[30px] ${jetBrains_font.className}`}
     >
       <AnimatePresence>
         {toasts.map((toast_) => {

@@ -7,8 +7,8 @@ function useReceiveFile() {
     const processReceivedFiles = () => {
       if (state.receivedFile === null) {
         setTimeout(() => {
-          if (state.receivedFileArray.length > 0) {
-            const file = state.receivedFileArray[0];
+          if (state.receivedFileArray?.length > 0) {
+            const file = state.receivedFileArray?.[0];
             setState((prev) => ({
               ...prev,
               receivedFile: file,
