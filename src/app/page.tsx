@@ -5,8 +5,8 @@ import { whatWeOffer } from "@/utils/whatWeOffer";
 
 export default function Home() {
   return (
-    <div className="h-full flex flex-col overflow-y-scroll">
-      <section className="flex w-full  max-w-[780px] gap-5 justify-center flex-col h-full px-4 my-auto items-center mt-24">
+    <div className="h-full flex flex-col items-center">
+      <section className="flex w-full  max-w-[780px] gap-5 justify-center flex-col h-full px-4 my-auto items-center mt-24 ">
         {" "}
         <h2 className="text-center">
           No more endless searching—just seamless connections to projects that

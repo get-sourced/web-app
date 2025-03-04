@@ -13,7 +13,7 @@ export const UserGrid = () => {
   return (
     <div className="flex justify-center gap-x-16 gap-y-4 items-center w-full  z-[2] flex-col">
       <MapComponents
-        className=" flex gap-2 flex-wrap overflow-x-auto justify-center gap-x-16 gap-y-4 items-center w-full max-h-[20vh] md:max-h-[40vh] py-2 overflow-y-scroll "
+        className=" flex gap-2 flex-wrap overflow-x-auto justify-center gap-x-16 gap-y-4 items-center w-full max-h-[20vh] md:max-h-[40vh] py-2 overflow-auto "
         items_to_map={state.users}
         method={(user) => {
           return (

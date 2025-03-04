@@ -42,6 +42,7 @@ export default {
         success: "#b5f8c5",
         error: "#feb7b8",
         warning: "#fae7c7",
+        repoBg: "var( --repo-bg)",
         primary_color: "var(--primary_color)",
         secondary_color: "var(--color-secondary_color)",
         light_grey: "var(--light_grey)",

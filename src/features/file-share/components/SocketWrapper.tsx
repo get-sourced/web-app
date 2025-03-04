@@ -46,7 +46,7 @@ function SocketWrapper() {
   // Handle received messages
   useReceivedMessage();
   return (
-    <div className={`relative w-full h-full  ${karla_font.className}`}>
+    <div className={`relative w-full  ${karla_font.className} h-[90vh]`}>
       <div
         className={
           "relative min-h-full flex justify-center items-center overflow-hidden transition-all duration-500 flex-col gap-6"

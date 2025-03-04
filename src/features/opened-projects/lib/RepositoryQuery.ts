@@ -1,14 +1,14 @@
 import type { Dispatch, SetStateAction } from "react";
-import type { RepositoryTypes } from "./types";
+import type { DataFromGithub } from "./types";
 
 export class RepositoryQuery {
-  private _setStateListener: Dispatch<SetStateAction<RepositoryTypes[]>>[];
-  private _state: RepositoryTypes[];
+  private _setStateListener: Dispatch<SetStateAction<DataFromGithub>>[];
+  private _state: DataFromGithub;
   constructor() {
-    this._state = [];
+    this._state = { items: [], total_count: 0 };
     this._setStateListener = [];
   }
-  subscribe(setState: Dispatch<SetStateAction<RepositoryTypes[]>>) {
+  subscribe(setState: Dispatch<SetStateAction<DataFromGithub>>) {
     this._setStateListener.push(setState);
     return () => {
       this._setStateListener = this._setStateListener.filter(
@@ -16,7 +16,7 @@ export class RepositoryQuery {
       );
     };
   }
-  changeState(repos: RepositoryTypes[]) {
+  changeState(repos: DataFromGithub) {
     this._state = repos;
     this.notifyStateListeners();
   }

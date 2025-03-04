@@ -19,8 +19,10 @@ function Navbar() {
   const { open, toggleMobileMenu } = useMobileMenuToggle();
   useClickOutside(spanElement, toggleMobileMenu, open);
   return (
-    <header className={`w-full ${jetBrains_font.className}  relative md:px-2 `}>
-      <nav className="w-full flex justify-between items-center fixed md:static px-4 bg-primary_color md:bg-transparent  z-[2] shadow-md">
+    <header
+      className={`w-full ${jetBrains_font.className} relative md:sticky   md:px-2 mx-auto md:top-0  md:z-50 bg-primary_color`}
+    >
+      <nav className="w-full flex justify-between items-center fixed md:static px-4  md:bg-transparent  z-[2] shadow-sm rounded-md bg-primary_color">
         {/* Logo */}
         <Link href={"/"}>
           {" "}
@@ -45,7 +47,7 @@ function Navbar() {
           ref={spanElement}
           className={`flex md:gap-4 justify-between md:justify-end md:items-center text-secondary_color   flex-shrink-0 md:flex-row  absolute top-[99%]  md:left-0 md:relative md:p-0 p-3 md:border-none w-full md:w-fit ${
             open ? "left-0" : "-left-[100%]"
-          } transition-all bg-primary_color md:bg-none shadow-md md:shadow-none rounded-br-md md:rounded-none `}
+          } transition-all bg-primary_color md:bg-transparent shadow-md md:shadow-none rounded-br-md md:rounded-none `}
         >
           <MapComponents
             className={"flex gap-4  items-center  "}

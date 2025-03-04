@@ -6,19 +6,20 @@ import {
   useEffect,
   useState,
 } from "react";
-import type { RepositoryTypes } from "../lib/types";
+import type { DataFromGithub } from "../lib/types";
 import { RepositoryQuery } from "../lib/RepositoryQuery";
 
-const RepositoryContext = createContext<RepositoryTypes[] | undefined>(
-  undefined
-);
+const RepositoryContext = createContext<DataFromGithub | undefined>(undefined);
 export const repositoryQuery = new RepositoryQuery();
 export const RepositoryContextProvider = ({
   children,
 }: {
   children: ReactNode;
 }) => {
-  const [repository, setRepository] = useState<RepositoryTypes[]>([]);
+  const [repository, setRepository] = useState<DataFromGithub>({
+    items: [],
+    total_count: 0,
+  });
   useEffect(() => {
     const unsubscribe = repositoryQuery.subscribe(setRepository);
     return () => {

@@ -152,10 +152,7 @@ export class Initialize {
           // Write chunk directly to disk
           try {
             await this._writable.write(new Uint8Array(fileData));
-            this._receivedBytes += fileData.byteLength;
-            const progress = Math.round(
-              (this._receivedBytes / totalChunks) * 100
-            );
+            const progress = Math.round((chunkNumber / totalChunks) * 100);
             this._socket.emit("progress", {
               progressPer: progress,
               targetUser: this._sender?.sender,

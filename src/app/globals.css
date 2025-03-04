@@ -7,12 +7,14 @@
   --light_grey: #bfbfbfe8;
   --color-secondary_color: #f5f5f5;
   --lighterBlack: #52525b;
+  --repo-bg: rgb(161 161 170 / 0.05);
   font-size: 15px;
 }
 body[data-theme="true"] {
   --light_grey: #5c5c5ce8;
   --color-secondary_color: #171717;
   --primary_color: white;
+  --repo-bg:rgb(148 163 184 / 0.1);
 }
 @layer base {
   :root {
